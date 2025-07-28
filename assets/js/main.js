@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 푸터 스크롤 표시/숨김 기능
+    // --- 푸터 스크롤 표시/숨김 기능 (이 부분은 이전과 동일하게 유지) ---
     const footer = document.querySelector('.footer-banner');
-
     window.addEventListener('scroll', () => {
         if (footer) {
             if (window.scrollY > 50) {
@@ -12,24 +11,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- 이메일 복사 기능 ---
-    const emailToCopy = 'jhong@uos.ac.kr'; // 복사할 교수님 이메일 주소 (변수로 정의하여 재활용)
+    // --- 이메일 복사 기능 (이 부분이 중요! DOMContentLoaded 안에 있고, 스크롤 이벤트 밖에 있어야 함) ---
+    const emailToCopy = 'jhong@uos.ac.kr'; // 복사할 이메일 주소
 
-    // 1. 이메일 아이콘 복사 기능
+    // 이메일 아이콘 복사 기능
     const copyEmailIcon = document.getElementById('copyEmail');
-    if (copyEmailIcon) {
+    if (copyEmailIcon) { // 요소가 존재할 때만 이벤트 리스너를 추가
         copyEmailIcon.addEventListener('click', function (event) {
-            event.preventDefault(); // 링크의 기본 동작 (페이지 이동 또는 mailto) 방지
-            copyToClipboard(emailToCopy); // 공통 함수 호출
+            event.preventDefault(); // 기본 동작 방지
+            copyToClipboard(emailToCopy); // 공통 복사 함수 호출
         });
     }
 
-    // 2. 텍스트 이메일 링크 복사 기능 (새로 추가)
+    // 텍스트 이메일 링크 복사 기능
     const copyEmailTextLink = document.getElementById('copyEmailText');
-    if (copyEmailTextLink) {
+    if (copyEmailTextLink) { // 요소가 존재할 때만 이벤트 리스너를 추가
         copyEmailTextLink.addEventListener('click', function (event) {
-            event.preventDefault(); // 링크의 기본 동작 (메일 클라이언트 열기) 방지
-            copyToClipboard(emailToCopy); // 공통 함수 호출
+            event.preventDefault(); // 기본 동작 방지
+            copyToClipboard(emailToCopy); // 공통 복사 함수 호출
         });
     }
 
