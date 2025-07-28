@@ -79,8 +79,7 @@ nav ul li a.active { color: #007bff; font-weight: bold;}
 .memory-card img { width: 100%; /* 100px이 아닌 100%로 변경 */ height: 250px; /* 고정 높이 설정 */ object-fit: cover; display: block;}
 .memory-card h3 { margin: 12px; font-size: 1.1rem; text-align: center}
 
-.footer-banner { background-color: #000000; color: white; padding: 30px 0; width: 100%;
-  margin-top: auto; flex-shrink: 0;}
+.footer-banner { background-color: #000000; color: white; padding: 30px 0; width: 100%; margin-top: auto; flex-shrink: 0; display: flex; justify-content: center; /* 푸터 내용 중앙 정렬 (선택 사항, 필요에 따라 조정) */ align-items: center; /* 푸터 내용 세로 중앙 정렬 (선택 사항, 필요에 따라 조정) */}
 .footer-content { max-width: 1200px; width:100%; margin: 0 auto; display: flex; justify-content: space-between;
   align-items: flex-start; padding: 0 20px; gap: 30px;}
 .footer-left { flex: 6 0 0; text-align: left; max-width: 550px;}

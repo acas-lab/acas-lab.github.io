@@ -1,18 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 푸터 스크롤 표시/숨김 기능 (이전 수정으로 삭제되었거나 유지되고 있을 것)
-    // ... (이 부분은 이전 대화에서 삭제하시라고 말씀드린 부분입니다. 만약 남아있다면 제거해주세요.)
-    const footer = document.querySelector('.footer-banner');
-    if (footer) { // footer 요소가 존재할 경우에만 스크롤 이벤트 리스너를 추가
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                footer.style.display = 'flex';
-            } else {
-                footer.style.display = 'none';
-            }
-        });
-    }
-
-
     // 클립보드에 복사하는 공통 함수
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(function() {
