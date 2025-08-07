@@ -5,12 +5,375 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ACAS – Publications</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="icon" href="assets/images/favicon.jpg" type="image/jpg">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #f5f5f5;
+    }
+
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #fff;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 20px;
+    }
+
+    header .logo img {
+      height: 60px;
+      width: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #007bff;
+    }
+
+    nav ul li a.active {
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 20px 40px;
+      width: 100%;
+    }
+
+    main h1 {
+      text-align: center;
+      margin: 40px 0 60px;
+      font-size: 3rem;
+      font-weight: 300;
+      letter-spacing: -1px;
+    }
+
+    /* Year Section */
+    .publication-year {
+      font-size: 3rem;
+      font-weight: 200;
+      text-align: center;
+      margin: 80px 0 50px;
+      color: #000;
+      letter-spacing: -1px;
+    }
+
+    /* Publication List */
+    .publication-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 60px 0;
+    }
+
+    /* Publication Item */
+    .publication-item {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .publication-item:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+    }
+
+    /* Publication Number */
+    .pub-number {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #000;
+      min-width: 80px;
+      text-align: left;
+      line-height: 1;
+    }
+
+    /* Venue Section */
+    .pub-venue {
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .venue-tier {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      align-self: flex-start;
+    }
+
+    .tier-top {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .tier-major {
+      background: #fff3e0;
+      color: #f57c00;
+    }
+
+    .venue-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #000;
+      line-height: 1.3;
+    }
+
+    /* Publication Details */
+    .pub-details {
+      flex: 1;
+    }
+
+    .pub-tags {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .pub-tag {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Tag Colors */
+    .tag-ai {
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+
+    .tag-mem {
+      background: #f3e5f5;
+      color: #7b1fa2;
+    }
+
+    .tag-ca {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .tag-sec {
+      background: #fff3e0;
+      color: #ef6c00;
+    }
+
+    .tag-hci {
+      background: #fce4ec;
+      color: #c2185b;
+    }
+
+    .tag-bc {
+      background: #e0f2f1;
+      color: #00796b;
+    }
+
+    .tag-sys {
+      background: #f1f8e9;
+      color: #558b2f;
+    }
+
+    .tag-med {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .tag-meta {
+      background: #ede7f6;
+      color: #5e35b1;
+    }
+
+    /* Publication Type Tags */
+    .tag-journal {
+      background: #263238;
+      color: white;
+    }
+
+    .tag-conf {
+      background: #455a64;
+      color: white;
+    }
+
+    .tag-domestic {
+      background: #607d8b;
+      color: white;
+    }
+
+    /* Publication Title and Meta */
+    .pub-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .pub-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .pub-title a:hover {
+      color: #1976d2;
+    }
+
+    .publication-meta {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .publication-authors {
+      font-size: 0.9rem;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    .publication-authors strong {
+      color: #000;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer-banner {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 50px 20px;
+      margin-top: 100px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .footer-left,
+    .footer-center,
+    .footer-right {
+      flex: 1;
+    }
+
+    .footer-banner h3,
+    .footer-banner h4 {
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+
+    .footer-banner p {
+      line-height: 1.8;
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+
+    .footer-banner a {
+      color: #4a9eff;
+      text-decoration: none;
+    }
+
+    .footer-banner a:hover {
+      text-decoration: underline;
+    }
+
+    .social-icons {
+      margin-top: 15px;
+    }
+
+    .social-icons a {
+      margin-right: 10px;
+      font-size: 1.5rem;
+      text-decoration: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .publication-item {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .pub-number {
+        min-width: auto;
+        text-align: left;
+      }
+
+      .pub-venue {
+        min-width: auto;
+      }
+
+      .footer-content {
+        flex-direction: column;
+      }
+
+      nav ul {
+        gap: 15px;
+      }
+
+      nav ul li a {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <!-- header/nav (다른 페이지와 동일하게 .container 안에 nav) -->
+  <!-- Header -->
   <header>
     <div class="container">
       <div class="logo">
@@ -31,242 +394,409 @@
     </div>
   </header>
 
-  <!-- … 앞부분 동일 (헤더·CSS 링크 등) … -->
-
   <main>
-    <div class="container">
-      <h1>Publications</h1>
-      <!-- 2024 -->
-      <div class="publication-year">2024</div>
-      <ul class="publication-list">
-        <li class="publication-item">
-          <div><span class="pub-tag MEM">MEM</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">Enhancing QoS in Multicore Systems with Heterogeneous Memory Configurations</a>
-          <div class="publication-meta"><strong>Electronics</strong>, Vol. 13 No. 17 (Sept 2024)</div>
-          <div class="publication-authors">Jesung Kim · Hoorin Park · <strong>Jeongkyu Hong</strong></div>
-        </li>
+    <h1>Publications</h1>
 
-        <li class="publication-item">
-          <div><span class="pub-tag BC">BC</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">Prospect Analysis for Utilization of Virtual Assets Using Blockchain Technology</a>
-          <div class="publication-meta"><strong>JICCE</strong>, Vol. 22 No. 1 (Mar 2024)</div>
-          <div class="publication-authors"><strong>Jeongkyu Hong</strong></div>
-        </li>
-
-        <li class="publication-item">
-          <div><span class="pub-tag AI">AI</span><span class="pub-tag CONF">Conf.</span></div>
-          <a href="#">Enhancing Classification of Parasite Microscopy Images Through Image Edge-Accentuating Pre-processing</a>
-          <div class="publication-meta"><strong>ACIIDS</strong> · Phitsanulok (Jul 2024)</div>
-          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · Sarvinoz Anorboeva · Yeong-Seok Seo · Ngoc Thanh Nguyen · <strong>Jeongkyu Hong</strong> · Dosam Hwang</div>
-        </li>
-      </ul>
-      <!-- 2023 -->
-      <div class="publication-year">2023</div>
-      <ul class="publication-list">
-        <li class="publication-item">
-          <div><span class="pub-tag AI">AI</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">MICL-UNet: Multi-input Cross-layer UNet Model for Classification of Diseases in Agriculture</a>
-          <div class="publication-meta"><strong>IEEE Access</strong> (Oct 2023)</div>
-          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · Dosam Hwang · Yeongseok Seo · <strong>Jeongkyu Hong</strong></div>
-        </li>
-
-        <li class="publication-item">
-          <div><span class="pub-tag AI">AI</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">Ensemble of Top-3 Prediction with Image Pixel Interval Method Using Deep Learning</a>
-          <div class="publication-meta"><strong>Computer Science & Information Systems</strong>, Vol. 20 No. 4 (Sept 2023)</div>
-          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · Sarvinoz Anorboeva · <strong>Jeongkyu Hong</strong> · Yeongseok Seo · Ngoc Thanh Nguyen · Dosam Hwang</div>
-        </li>
-
-        <li class="publication-item">
-          <div><span class="pub-tag HCI">HCI</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">Effective Emoticon Suggestion Technique Based on Active Emotional Input Using Facial Expressions and Heart-rate Signals</a>
-          <div class="publication-meta"><strong>Sensors</strong> 23 (9) (May 2023)</div>
-          <div class="publication-authors">Jesung Kim · Mincheol Kang · Bohun Seo · <strong>Jeongkyu Hong</strong> · Soontae Kim</div>
-        </li>
-
-        <li class="publication-item">
-          <div><span class="pub-tag SEC">SEC</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">BackProx: Secure Backscatter-Assisted Proximity Detection for Passive Keyless Entry and Start Systems</a>
-          <div class="publication-meta"><strong>Sensors</strong> 23 (4) (Feb 2023)</div>
-          <div class="publication-authors">Hoorin Park · <strong>Jeongkyu Hong</strong></div>
-        </li>
-
-        <li class="publication-item">
-          <div><span class="pub-tag AI">AI</span><span class="pub-tag CONF">Conf.</span></div>
-          <a href="#">Classifying Chicken-Made Food Images Using Enhanced MobileNetV2</a>
-          <div class="publication-meta"><strong>ICCCI</strong> · Warsaw (Sept 2023)</div>
-          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · <strong>Jeongkyu Hong</strong> · Ngoc Thanh Nguyen · Yeongseok Seo · Dosam Hwang</div>
-        </li>
-
-        <li class="publication-item">
-          <div><span class="pub-tag MED">MED</span><span class="pub-tag CONF">Domestic Conf.</span></div>
-          <a href="#">Ensemble Techniques in Medical Imaging: Advancing Malaria Classification Through Multi-Channel Decomposition</a>
-          <div class="publication-meta"><strong>대한임베디드공학회 추계학술대회</strong> (Nov 2023)</div>
-          <div class="publication-authors">Sarvinoz Anorboeva · Javokhir Musaev · Abdulaziz Anorboev · Yeongseok Seo · <strong>Jeongkyu Hong</strong></div>
-        </li>
-
-        <li class="publication-item">
-          <div><span class="pub-tag META">META</span><span class="pub-tag CONF">Domestic Conf.</span></div>
-          <a href="#">CES 2023 트렌드에 의한 인공지능과 메타버스 기술 발전 전망</a>
-          <div class="publication-meta"><strong>한국정보통신학회 종합학술대회</strong> (Mar 2023)</div>
-          <div class="publication-authors"><strong>Jeongkyu Hong</strong></div>
-        </li>
-      </ul>
-      <!-- 2022 -->
-      <div class="publication-year">2022</div>
-      <ul class="publication-list">
-        <li class="publication-item">
-          <div><span class="pub-tag SEC">SEC</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">Efficient Integrity-Tree Structure for CNNs Through Frequent Counter-Overflow Prevention in Secure Memories</a>
-          <div class="publication-meta"><strong>Sensors</strong> 22 (22) (Nov 2022)</div>
-          <div class="publication-authors">Jesung Kim · Wonyoung Lee · <strong>Jeongkyu Hong</strong> · Soontae Kim</div>
-        </li>
-
-        <li class="publication-item">
-          <div><span class="pub-tag CA">CA</span><span class="pub-tag tier">Top-tier Conf.</span></div>
-          <a href="#">Exploiting Inter-block Entropy to Enhance the Compressibility of Blocks with Diverse Data</a>
-          <div class="publication-meta"><strong>IEEE HPCA</strong> · Seoul (Apr 2022)</div>
-          <div class="publication-authors">Jinkwon Kim · Mincheol Kang · <strong>Jeongkyu Hong</strong> · Soontae Kim</div>
-        </li>
-
-        <li class="publication-item">
-          <div><span class="pub-tag AI">AI</span><span class="pub-tag CONF">Conf.</span></div>
-          <a href="#">An Image Pixel Interval Power (IPIP) Method Using Deep-Learning Classification Models</a>
-          <div class="publication-meta"><strong>ACIIDS</strong> · Kuching (Dec 2022)</div>
-          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · <strong>Jeongkyu Hong</strong> · Ngoc Thanh Nguyen · Dosam Hwang</div>
-        </li>
-
-        <li class="publication-item">
-          <div><span class="pub-tag AI">AI</span><span class="pub-tag CONF">Conf.</span></div>
-          <a href="#">SSTop3: Sole-Top-Three and Sum-Top-Three Class Prediction Ensemble Method Using Deep-Learning Models</a>
-          <div class="publication-meta"><strong>ICCCI</strong> · Kitakyushu (Sept 2022)</div>
-          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · <strong>Jeongkyu Hong</strong> · Ngoc Thanh Nguyen · Dosam Hwang</div>
-        </li>
-
-        <li class="publication-item">
-          <div><span class="pub-tag AI">AI</span><span class="pub-tag CONF">Conf.</span></div>
-          <a href="#">Input Image Pixel-Interval Method for Classification Using Transfer Learning</a>
-          <div class="publication-meta"><strong>INISTA</strong> · Białystok (Aug 2022)</div>
-          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · <strong>Jeongkyu Hong</strong> · Ngoc Thanh Nguyen · Dosam Hwang</div>
-        </li>
-      </ul>
-      <!-- 2021 -->
-      <div class="publication-year">2021</div>
-      <ul class="publication-list">
-        <li class="publication-item">
-          <div><span class="pub-tag CA">CA</span><span class="pub-tag tier">Top-tier Jnl.</span></div>
-          <a href="#">CID: Co-Architecting Instruction-Cache and Decompression System for Embedded Systems</a>
-          <div class="publication-meta"><strong>IEEE Transactions on Computers</strong> 70 (7): 1132-1145 (Mar 2021)
+    <!-- 2024 -->
+    <div class="publication-year">2024</div>
+    <ul class="publication-list">
+      <li class="publication-item">
+        <div class="pub-number">36</div>
+        <div class="pub-venue">
+          <div class="venue-name">Electronics</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-mem">MEM</span>
+            <span class="pub-tag tag-journal">Journal</span>
           </div>
+          <div class="pub-title">
+            <a href="#">Enhancing QoS in Multicore Systems with Heterogeneous Memory Configurations</a>
+          </div>
+          <div class="publication-meta">Vol. 13 No. 17 (Sept 2024)</div>
+          <div class="publication-authors">Jesung Kim · Hoorin Park · <strong>Jeongkyu Hong</strong></div>
+        </div>
+      </li>
+
+      <li class="publication-item">
+        <div class="pub-number">35</div>
+        <div class="pub-venue">
+          <div class="venue-name">JICCE</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-bc">BC</span>
+            <span class="pub-tag tag-journal">Journal</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">Prospect Analysis for Utilization of Virtual Assets Using Blockchain Technology</a>
+          </div>
+          <div class="publication-meta">Vol. 22 No. 1 (Mar 2024)</div>
+          <div class="publication-authors"><strong>Jeongkyu Hong</strong></div>
+        </div>
+      </li>
+
+      <li class="publication-item">
+        <div class="pub-number">34</div>
+        <div class="pub-venue">
+          <div class="venue-name">ACIIDS</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-ai">AI</span>
+            <span class="pub-tag tag-conf">Conf.</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">Enhancing Classification of Parasite Microscopy Images Through Image Edge-Accentuating
+              Pre-processing</a>
+          </div>
+          <div class="publication-meta">Phitsanulok (Jul 2024)</div>
+          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · Sarvinoz Anorboeva · Yeong-Seok Seo ·
+            Ngoc Thanh Nguyen · <strong>Jeongkyu Hong</strong> · Dosam Hwang</div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- 2023 -->
+    <div class="publication-year">2023</div>
+    <ul class="publication-list">
+      <li class="publication-item">
+        <div class="pub-number">33</div>
+        <div class="pub-venue">
+          <div class="venue-name">IEEE Access</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-ai">AI</span>
+            <span class="pub-tag tag-journal">JOURNAL</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">MICL-UNet: Multi-input Cross-layer UNet Model for Classification of Diseases in Agriculture</a>
+          </div>
+          <div class="publication-meta">(Oct 2023)</div>
+          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · Dosam Hwang · Yeongseok Seo ·
+            <strong>Jeongkyu Hong</strong></div>
+        </div>
+      </li>
+
+      <li class="publication-item">
+        <div class="pub-number">32</div>
+        <div class="pub-venue">
+          <div class="venue-name">Computer Science & Information Systems</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-ai">AI</span>
+            <span class="pub-tag tag-journal">JOURNAL</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">Ensemble of Top-3 Prediction with Image Pixel Interval Method Using Deep Learning</a>
+          </div>
+          <div class="publication-meta">Vol. 20 No. 4 (Sept 2023)</div>
+          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · Sarvinoz Anorboeva · <strong>Jeongkyu
+              Hong</strong> · Yeongseok Seo · Ngoc Thanh Nguyen · Dosam Hwang</div>
+        </div>
+      </li>
+
+      <li class="publication-item">
+        <div class="pub-number">31</div>
+        <div class="pub-venue">
+          <div class="venue-name">Sensors</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-hci">HCI</span>
+            <span class="pub-tag tag-journal">JOURNAL</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">Effective Emoticon Suggestion Technique Based on Active Emotional Input Using Facial Expressions
+              and Heart-rate Signals</a>
+          </div>
+          <div class="publication-meta">23 (9) (May 2023)</div>
+          <div class="publication-authors">Jesung Kim · Mincheol Kang · Bohun Seo · <strong>Jeongkyu Hong</strong> ·
+            Soontae Kim</div>
+        </div>
+      </li>
+
+      <li class="publication-item">
+        <div class="pub-number">30</div>
+        <div class="pub-venue">
+          <div class="venue-name">Sensors</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-sec">SEC</span>
+            <span class="pub-tag tag-journal">JOURNAL</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">BackProx: Secure Backscatter-Assisted Proximity Detection for Passive Keyless Entry and Start
+              Systems</a>
+          </div>
+          <div class="publication-meta">23 (4) (Feb 2023)</div>
+          <div class="publication-authors">Hoorin Park · <strong>Jeongkyu Hong</strong></div>
+        </div>
+      </li>
+
+      <li class="publication-item">
+        <div class="pub-number">29</div>
+        <div class="pub-venue">
+          <div class="venue-name">ICCCI</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-ai">AI</span>
+            <span class="pub-tag tag-conf">CONF</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">Classifying Chicken-Made Food Images Using Enhanced MobileNetV2</a>
+          </div>
+          <div class="publication-meta">Warsaw (Sept 2023)</div>
+          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · <strong>Jeongkyu Hong</strong> · Ngoc
+            Thanh Nguyen · Yeongseok Seo · Dosam Hwang</div>
+        </div>
+      </li>
+
+      <li class="publication-item">
+        <div class="pub-number">28</div>
+        <div class="pub-venue">
+          <div class="venue-name">대한임베디드공학회 추계학술대회</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-med">MED</span>
+            <span class="pub-tag tag-domestic">DOMESTIC CONF</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">Ensemble Techniques in Medical Imaging: Advancing Malaria Classification Through Multi-Channel
+              Decomposition</a>
+          </div>
+          <div class="publication-meta">(Nov 2023)</div>
+          <div class="publication-authors">Sarvinoz Anorboeva · Javokhir Musaev · Abdulaziz Anorboev · Yeongseok Seo ·
+            <strong>Jeongkyu Hong</strong></div>
+        </div>
+      </li>
+
+      <li class="publication-item">
+        <div class="pub-number">27</div>
+        <div class="pub-venue">
+          <div class="venue-name">한국정보통신학회 종합학술대회</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-meta">META</span>
+            <span class="pub-tag tag-domestic">DOMESTIC CONF</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">CES 2023 트렌드에 의한 인공지능과 메타버스 기술 발전 전망</a>
+          </div>
+          <div class="publication-meta">(Mar 2023)</div>
+          <div class="publication-authors"><strong>Jeongkyu Hong</strong></div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- 2022 -->
+    <div class="publication-year">2022</div>
+    <ul class="publication-list">
+      <li class="publication-item">
+        <div class="pub-number">26</div>
+        <div class="pub-venue">
+          <div class="venue-name">Sensors</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-sec">SEC</span>
+            <span class="pub-tag tag-journal">Journal</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">Efficient Integrity-Tree Structure for CNNs Through Frequent Counter-Overflow Prevention in
+              Secure Memories</a>
+          </div>
+          <div class="publication-meta">22 (22) (Nov 2022)</div>
+          <div class="publication-authors">Jesung Kim · Wonyoung Lee · <strong>Jeongkyu Hong</strong> · Soontae Kim
+          </div>
+        </div>
+      </li>
+
+      <li class="publication-item">
+        <div class="pub-number">25</div>
+        <div class="pub-venue">
+          <div class="venue-tier tier-top">Top-tier</div>
+          <div class="venue-name">IEEE HPCA</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-ca">CA</span>
+            <span class="pub-tag tag-conf">Conf.</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">Exploiting Inter-block Entropy to Enhance the Compressibility of Blocks with Diverse Data</a>
+          </div>
+          <div class="publication-meta">Seoul (Apr 2022)</div>
+          <div class="publication-authors">Jinkwon Kim · Mincheol Kang · <strong>Jeongkyu Hong</strong> · Soontae Kim
+          </div>
+        </div>
+      </li>
+
+      <li class="publication-item">
+        <div class="pub-number">24</div>
+        <div class="pub-venue">
+          <div class="venue-name">ACIIDS</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-ai">AI</span>
+            <span class="pub-tag tag-conf">Conf.</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">An Image Pixel Interval Power (IPIP) Method Using Deep-Learning Classification Models</a>
+          </div>
+          <div class="publication-meta">Kuching (Dec 2022)</div>
+          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · <strong>Jeongkyu Hong</strong> · Ngoc
+            Thanh Nguyen · Dosam Hwang</div>
+        </div>
+      </li>
+
+      <li class="publication-item">
+        <div class="pub-number">23</div>
+        <div class="pub-venue">
+          <div class="venue-name">ICCCI</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-ai">AI</span>
+            <span class="pub-tag tag-conf">Conf.</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">SSTop3: Sole-Top-Three and Sum-Top-Three Class Prediction Ensemble Method Using Deep-Learning
+              Models</a>
+          </div>
+          <div class="publication-meta">Kitakyushu (Sept 2022)</div>
+          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · <strong>Jeongkyu Hong</strong> · Ngoc
+            Thanh Nguyen · Dosam Hwang</div>
+        </div>
+      </li>
+
+      <li class="publication-item">
+        <div class="pub-number">22</div>
+        <div class="pub-venue">
+          <div class="venue-name">INISTA</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-ai">AI</span>
+            <span class="pub-tag tag-conf">Conf.</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">Input Image Pixel-Interval Method for Classification Using Transfer Learning</a>
+          </div>
+          <div class="publication-meta">Białystok (Aug 2022)</div>
+          <div class="publication-authors">Abdulaziz Anorboev · Javokhir Musaev · <strong>Jeongkyu Hong</strong> · Ngoc
+            Thanh Nguyen · Dosam Hwang</div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- 2021 -->
+    <div class="publication-year">2021</div>
+    <ul class="publication-list">
+      <li class="publication-item">
+        <div class="pub-number">21</div>
+        <div class="pub-venue">
+          <div class="venue-tier tier-top">Top-tier</div>
+          <div class="venue-name">IEEE Transactions on Computers</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-ca">CA</span>
+            <span class="pub-tag tag-journal">Journal</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">CID: Co-Architecting Instruction-Cache and Decompression System for Embedded Systems</a>
+          </div>
+          <div class="publication-meta">70 (7): 1132-1145 (Mar 2021)</div>
           <div class="publication-authors">Jinkwon Kim · Seokin Hong · <strong>Jeongkyu Hong</strong> · Soontae Kim
           </div>
-        </li>
+        </div>
+      </li>
 
-        <li class="publication-item">
-          <div><span class="pub-tag AI">AI</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">MATE: Memory- and Retraining-Free Error Correction for CNN Weights</a>
-          <div class="publication-meta"><strong>JICCE</strong> 19 (1) (Mar 2021)</div>
+      <li class="publication-item">
+        <div class="pub-number">20</div>
+        <div class="pub-venue">
+          <div class="venue-name">JICCE</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-ai">AI</span>
+            <span class="pub-tag tag-journal">Journal</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">MATE: Memory- and Retraining-Free Error Correction for CNN Weights</a>
+          </div>
+          <div class="publication-meta">19 (1) (Mar 2021)</div>
           <div class="publication-authors">Myeungjae Jang · <strong>Jeongkyu Hong</strong></div>
-        </li>
-      </ul>
+        </div>
+      </li>
+    </ul>
 
-      <!-- 2020 -->
-      <div class="publication-year">2020</div>
-      <ul class="publication-list">
-        <li class="publication-item">
-          <div><span class="pub-tag CA">CA</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">ETS: Efficient Task Scheduler for Per-Core DVFS-Enabled Multicore Processors</a>
-          <div class="publication-meta"><strong>JICCE</strong> 18 (4) (Dec 2020)</div>
+    <!-- 2020 -->
+    <div class="publication-year">2020</div>
+    <ul class="publication-list">
+      <li class="publication-item">
+        <div class="pub-number">19</div>
+        <div class="pub-venue">
+          <div class="venue-name">JICCE</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-ca">CA</span>
+            <span class="pub-tag tag-journal">Journal</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">ETS: Efficient Task Scheduler for Per-Core DVFS-Enabled Multicore Processors</a>
+          </div>
+          <div class="publication-meta">18 (4) (Dec 2020)</div>
           <div class="publication-authors"><strong>Jeongkyu Hong</strong></div>
-        </li>
+        </div>
+      </li>
 
-        <li class="publication-item">
-          <div><span class="pub-tag SYS">SYS</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">Low-Delay, Low-Power, Real-Time Audio Remote-Transmission System over Wi-Fi</a>
-          <div class="publication-meta"><strong>JICCE</strong> 18 (2) (Jun 2020)</div>
+      <li class="publication-item">
+        <div class="pub-number">18</div>
+        <div class="pub-venue">
+          <div class="venue-name">JICCE</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-sys">SYS</span>
+            <span class="pub-tag tag-journal">Journal</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">Low-Delay, Low-Power, Real-Time Audio Remote-Transmission System over Wi-Fi</a>
+          </div>
+          <div class="publication-meta">18 (2) (Jun 2020)</div>
           <div class="publication-authors">Jinwoo Hong · Jeongju Yoo · <strong>Jeongkyu Hong</strong></div>
-        </li>
+        </div>
+      </li>
 
-        <li class="publication-item">
-          <div><span class="pub-tag SYS">SYS</span><span class="pub-tag CONF">Domestic Conf.</span></div>
-          <a href="#">WI-FI 기반 저전력 실시간 오디오 원격전송 시스템</a>
-          <div class="publication-meta"><strong>한국정보통신학회 학술대회</strong> (Jul 2020)</div>
+      <li class="publication-item">
+        <div class="pub-number">17</div>
+        <div class="pub-venue">
+          <div class="venue-name">한국정보통신학회 학술대회</div>
+        </div>
+        <div class="pub-details">
+          <div class="pub-tags">
+            <span class="pub-tag tag-sys">SYS</span>
+            <span class="pub-tag tag-domestic">Domestic Conf.</span>
+          </div>
+          <div class="pub-title">
+            <a href="#">WI-FI 기반 저전력 실시간 오디오 원격전송 시스템</a>
+          </div>
+          <div class="publication-meta">(Jul 2020)</div>
           <div class="publication-authors">Jinwoo Hong · Jeongju Yoo · <strong>Jeongkyu Hong</strong></div>
-        </li>
-      </ul>
-
-      <!-- 2019 -->
-      <div class="publication-year">2019</div>
-      <ul class="publication-list">
-        <li class="publication-item">
-          <div><span class="pub-tag CA">CA</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">MH-Cache: A Multi-retention STT-RAM LLC for Mobile Hardware Rendering Systems</a>
-          <div class="publication-meta"><strong>ACM TACO</strong> 16 (3) (Aug 2019)</div>
-          <div class="publication-authors">Jungwoo Park · Myoungjun Lee · Soontae Kim · Minho Ju · <strong>Jeongkyu
-              Hong</strong></div>
-        </li>
-      </ul>
-
-      <!-- 2018 -->
-      <div class="publication-year">2018</div>
-      <ul class="publication-list">
-        <li class="publication-item">
-          <div><span class="pub-tag MEM">MEM</span><span class="pub-tag tier">Top-tier Conf.</span></div>
-          <a href="#">EAR: ECC-Aided Refresh Reduction Through 2-D Zero Compression</a>
-          <div class="publication-meta"><strong>PACT</strong> · Limassol, Cyprus (Nov 2018)</div>
-          <div class="publication-authors"><strong>Jeongkyu Hong</strong> · Hyeonggyu Kim · Soontae Kim</div>
-        </li>
-      </ul>
-
-      <!-- 2017 -->
-      <div class="publication-year">2017</div>
-      <ul class="publication-list">
-        <li class="publication-item">
-          <div><span class="pub-tag CA">CA</span><span class="pub-tag tier">Top-tier Jnl.</span></div>
-          <a href="#">Smart ECC Allocation Cache Utilizing Cache-Data Space</a>
-          <div class="publication-meta"><strong>IEEE Transactions on Computers</strong> 66 (2): 368-374 (Feb 2017)</div>
-          <div class="publication-authors"><strong>Jeongkyu Hong</strong> · Soontae Kim</div>
-        </li>
-      </ul>
-
-      <!-- 2016 -->
-      <div class="publication-year">2016</div>
-      <ul class="publication-list">
-        <li class="publication-item">
-          <div><span class="pub-tag CA">CA</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">Flexible ECC Management for Low-Cost Transient-Error Protection of Last-Level Caches</a>
-          <div class="publication-meta"><strong>IEEE TVLSI</strong> 24 (6): 2152-2164 (Jun 2016)</div>
-          <div class="publication-authors"><strong>Jeongkyu Hong</strong> · Soontae Kim</div>
-        </li>
-      </ul>
-
-      <!-- 2015 -->
-      <div class="publication-year">2015</div>
-      <ul class="publication-list">
-        <li class="publication-item">
-          <div><span class="pub-tag CA">CA</span><span class="pub-tag JOURNAL">Journal</span></div>
-          <a href="#">Exploiting Same Tag Bits to Improve the Reliability of Cache Memories</a>
-          <div class="publication-meta"><strong>IEEE TVLSI</strong> 23 (2): 254-265 (Feb 2015)</div>
-          <div class="publication-authors"><strong>Jeongkyu Hong</strong> · Jesung Kim · Soontae Kim</div>
-        </li>
-      </ul>
-
-      <!-- 2012 -->
-      <div class="publication-year">2012</div>
-      <ul class="publication-list">
-        <li class="publication-item">
-          <div><span class="pub-tag CA">CA</span><span class="pub-tag CONF">Conf.</span></div>
-          <a href="#">ECC String: Flexible ECC Management for Low-Cost Error Protection of L2 Caches</a>
-          <div class="publication-meta"><strong>IEEE ICCD</strong> · Montreal, Canada (Oct 2012)</div>
-          <div class="publication-authors"><strong>Jeongkyu Hong</strong> · Soontae Kim</div>
-        </li>
-      </ul>
-    </div>
+        </div>
+      </li>
+    </ul>
   </main>
-
-  <!-- footer 동일 … -->
-
-
   <footer class="footer-banner">
     <div class="footer-content">
       <div class="footer-left">
@@ -287,7 +817,7 @@
       <div class="footer-right">
         <h4>Contact us</h4>
         <p><a href="mailto:jhong@uos.ac.kr" id="copyEmailText">jhong@uos.ac.kr</a><br>
-        Office:R#606, Info.&Tech. Bldg </p>
+          Office:R#606, Info.&Tech. Bldg </p>
       </div>
     </div>
   </footer>
