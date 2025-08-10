@@ -54,9 +54,13 @@
 HTML에서 이미지, CSS, JavaScript 파일 등을 참조할 때는 경로를 정확하게 지정해야 합니다.
 
 - **예시 1** — 현재 폴더 기준:
+  ```html
   <link rel="stylesheet" href="assets/css/style.css">
+  ```
   index.html과 같이 최상위 폴더에 있는 파일에서 CSS를 불러올 때 사용합니다.
 
 - **예시 2** — 상위 폴더로 이동 후 참조:
+  ```html
   <link rel="stylesheet" href="../assets/css/style.css">
+  ```
   members/cheolho-choi.html과 같이 하위 폴더에 있는 HTML에서 상위 폴더의 CSS를 불러올 때 사용합니다.
