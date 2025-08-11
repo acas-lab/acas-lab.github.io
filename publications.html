@@ -38,7 +38,7 @@
   .pub-page .pub-number::before{
     content: counter(pub);
     display:block;
-    font-size:2.4rem; font-weight:800; color:#0d3b66;  /* 진한 파랑 느낌 */
+    font-size:2.4rem; font-weight:800; color:#000
   }
 
   /* 학회/티어 열 */
@@ -49,10 +49,10 @@
     align-self:flex-start;
     display:inline-block; padding:4px 10px; border-radius:16px;
     font-size:.8rem; font-weight:700; letter-spacing:.3px; text-transform:none;
-    background:#fff3e0; color:#e67e22;   /* 오렌지 배지 (Major/Top-Tier 등) */
+    background:#fff3e0; color:#d32f2f;   /* 오렌지 배지 (Major/Top-Tier 등) */
   }
   .pub-page .venue-name{
-    font-size:1.4rem; font-weight:700; color:#0d3b66; line-height:1.2;
+    font-size:1.4rem; font-weight:700; color:#000; line-height:1.2;
   }
 
   /* 본문 열 */
@@ -63,18 +63,20 @@
     font-size:.8rem; font-weight:700; letter-spacing:.3px; border:0;
   }
   /* 태그 색상 (원하는대로 유지/수정 가능) */
-  .pub-page .tag-ai{   background:#e3f2fd; color:#1565c0; }
-  .pub-page .tag-mem{  background:#f3e5f5; color:#7b1fa2; }
-  .pub-page .tag-ca{   background:#e8f5e9; color:#2e7d32; }
-  .pub-page .tag-sec{  background:#fff3e0; color:#ef6c00; }
-  .pub-page .tag-hci{  background:#fce4ec; color:#c2185b; }
-  .pub-page .tag-bc{   background:#e0f2f1; color:#00796b; }
-  .pub-page .tag-sys{  background:#f1f8e9; color:#558b2f; }
-  .pub-page .tag-med{  background:#ffebee; color:#c62828; }
-  .pub-page .tag-meta{ background:#ede7f6; color:#5e35b1; }
-  .pub-page .tag-journal{  background:#263238; color:#fff; }
-  .pub-page .tag-conf{     background:#455a64; color:#fff; }
-  .pub-page .tag-domestic{ background:#607d8b; color:#fff; }
+.pub-page .tag-ai    { background:#eaf2ff; color:#3b6fd8; }
+.pub-page .tag-mem   { background:#f3e9fb; color:#7a3db4; }
+.pub-page .tag-ca    { background:#eaf7ee; color:#2f7d3a; }
+.pub-page .tag-sec   { background:#fff1e6; color:#d06b2c; }
+.pub-page .tag-hci   { background:#fdeaf2; color:#c53a7a; }
+.pub-page .tag-bc    { background:#e8f6f4; color:#1e8576; }
+.pub-page .tag-sys   { background:#eef7e8; color:#4b7a2f; }
+.pub-page .tag-med   { background:#ffe8ea; color:#c83b43; }
+.pub-page .tag-meta  { background:#efe9fb; color:#6446c5; }
+
+/* 타입 태그도 파스텔로 */
+.pub-page .tag-journal  { background:#e9eef2; color:#2f3b45; }
+.pub-page .tag-conf     { background:#e9edf1; color:#3a4a58; }
+.pub-page .tag-domestic { background:#eaf0f4; color:#34515e; }
 
   .pub-page .pub-title{ font-size:1.25rem; font-weight:700; color:#000; margin:0 0 10px; line-height:1.35; }
   .pub-page .pub-title a{ color:inherit; text-decoration:none; transition:color .2s; }
