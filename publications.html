@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ACAS – Publications</title>
   <link rel="icon" href="assets/images/favicon.jpg" type="image/jpg">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
   <style>
-    main {
+  .pub-page main {
       flex: 1;
       max-width: 1200px;
       margin: 0 auto;
       padding: 100px 20px 40px;
       width: 100%;
     }
+
     /* Publication Item */
-    .publication-item {
+    .pub-page .publication-item {
       background: white;
       border-radius: 16px;
       padding: 30px;
@@ -26,13 +26,15 @@
       gap: 30px;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none; /* 전역 .publication-item 경계선 무력화 */
     }
-    .publication-item:hover {
+    .pub-page .publication-item:hover {
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
       transform: translateY(-2px);
     }
+
     /* Publication Number */
-    .pub-number {
+    .pub-page .pub-number {
       font-size: 2.8rem;
       font-weight: 700;
       color: #000;
@@ -40,14 +42,15 @@
       text-align: left;
       line-height: 1;
     }
+
     /* Venue Section */
-    .pub-venue {
+    .pub-page .pub-venue {
       min-width: 200px;
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
-    .venue-tier {
+    .pub-page .venue-tier {
       display: inline-block;
       padding: 5px 12px;
       border-radius: 20px;
@@ -57,31 +60,24 @@
       letter-spacing: 0.5px;
       align-self: flex-start;
     }
-    .tier-top {
-      background: #ffebee;
-      color: #c62828;
-    }
-    .tier-major {
-      background: #fff3e0;
-      color: #f57c00;
-    }
-    .venue-name {
+    .pub-page .tier-top { background: #ffebee; color: #c62828; }
+    .pub-page .tier-major { background: #fff3e0; color: #f57c00; }
+    .pub-page .venue-name {
       font-size: 1.25rem;
       font-weight: 600;
       color: #000;
       line-height: 1.3;
     }
+
     /* Publication Details */
-    .pub-details {
-      flex: 1;
-    }
-    .pub-tags {
+    .pub-page .pub-details { flex: 1; }
+    .pub-page .pub-tags {
       display: flex;
       gap: 10px;
       margin-bottom: 16px;
       flex-wrap: wrap;
     }
-    .pub-tag {
+    .pub-page .pub-tag {
       display: inline-block;
       padding: 6px 16px;
       border-radius: 20px;
@@ -89,105 +85,49 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      border: 0; /* 전역 pub-tag 테두리 제거 */
     }
+
     /* Tag Colors */
-    .tag-ai {
-      background: #e3f2fd;
-      color: #1565c0;
-    }
-    .tag-mem {
-      background: #f3e5f5;
-      color: #7b1fa2;
-    }
-    .tag-ca {
-      background: #e8f5e9;
-      color: #2e7d32;
-    }
-    .tag-sec {
-      background: #fff3e0;
-      color: #ef6c00;
-    }
-    .tag-hci {
-      background: #fce4ec;
-      color: #c2185b;
-    }
-    .tag-bc {
-      background: #e0f2f1;
-      color: #00796b;
-    }
-    .tag-sys {
-      background: #f1f8e9;
-      color: #558b2f;
-    }
-    .tag-med {
-      background: #ffebee;
-      color: #c62828;
-    }
-    .tag-meta {
-      background: #ede7f6;
-      color: #5e35b1;
-    }
+    .pub-page .tag-ai    { background: #e3f2fd; color: #1565c0; }
+    .pub-page .tag-mem   { background: #f3e5f5; color: #7b1fa2; }
+    .pub-page .tag-ca    { background: #e8f5e9; color: #2e7d32; }
+    .pub-page .tag-sec   { background: #fff3e0; color: #ef6c00; }
+    .pub-page .tag-hci   { background: #fce4ec; color: #c2185b; }
+    .pub-page .tag-bc    { background: #e0f2f1; color: #00796b; }
+    .pub-page .tag-sys   { background: #f1f8e9; color: #558b2f; }
+    .pub-page .tag-med   { background: #ffebee; color: #c62828; }
+    .pub-page .tag-meta  { background: #ede7f6; color: #5e35b1; }
+
     /* Publication Type Tags */
-    .tag-journal {
-      background: #263238;
-      color: white;
-    }
-    .tag-conf {
-      background: #455a64;
-      color: white;
-    }
-    .tag-domestic {
-      background: #607d8b;
-      color: white;
-    }
+    .pub-page .tag-journal { background: #263238; color: #fff; }
+    .pub-page .tag-conf    { background: #455a64; color: #fff; }
+    .pub-page .tag-domestic { background: #607d8b; color: #fff; }
+
     /* Publication Title and Meta */
-    .pub-title {
+    .pub-page .pub-title {
       font-size: 1.25rem;
       font-weight: 600;
       color: #000;
       margin-bottom: 12px;
       line-height: 1.4;
     }
-    .pub-title a {
-      color: inherit;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .pub-title a:hover {
-      color: #1976d2;
-    }
-    .publication-meta {
-      font-size: 0.95rem;
-      color: #666;
-      margin-bottom: 10px;
-    }
-    .publication-authors {
-      font-size: 0.9rem;
-      color: #888;
-      line-height: 1.5;
-    }
-    .publication-authors strong {
-      color: #000;
-      font-weight: 600;
-    }
+    .pub-page .pub-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    .pub-page .pub-title a:hover { color: #1976d2; }
+    .pub-page .publication-meta { font-size: 0.95rem; color: #666; margin-bottom: 10px; }
+    .pub-page .publication-authors { font-size: 0.9rem; color: #888; line-height: 1.5; }
+    .pub-page .publication-authors strong { color: #000; font-weight: 600; }
+
     /* Responsive Design */
     @media (max-width: 768px) {
-      .publication-item {
-        flex-direction: column;
-        gap: 20px;
-      }
-      .pub-number {
-        min-width: auto;
-        text-align: left;
-      }
-      .pub-venue {
-        min-width: auto;
-      }
+      .pub-page .publication-item { flex-direction: column; gap: 20px; }
+      .pub-page .pub-number { min-width: auto; text-align: left; }
+      .pub-page .pub-venue { min-width: auto; }
     }
   </style>
 </head>
 
-<body>
+<body class="pub-page">
   <!-- Header -->
   <header>
     <div class="container">
@@ -739,10 +679,6 @@
         </div>
       </li>
     </ul>
-
-
-
-
   </main>
   <footer class="footer-banner">
     <div class="footer-content">
@@ -768,7 +704,6 @@
       </div>
     </div>
   </footer>
-
+  <script src="assets/js/main.js"></script>
 </body>
-
 </html>
