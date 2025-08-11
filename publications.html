@@ -7,236 +7,100 @@
   <title>ACAS – Publications</title>
   <link rel="icon" href="assets/images/favicon.jpg" type="image/jpg">
   <link rel="stylesheet" href="assets/css/style.css">
-  <style>
-    .pub-page main {
-      flex: 1;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 100px 20px 40px;
-      width: 100%;
-      counter-reset: pub var(--pub-start, 1);
+<style>
+  /* 페이지 공통(그대로 유지) + 카운터 초기화 */
+  .pub-page main{
+    flex:1; max-width:1200px; margin:0 auto; padding:100px 20px 40px; width:100%;
+    counter-reset: pub var(--pub-start, 1); /* JS로 --pub-start 넣어주면 위→큰숫자, 아래→1 */
+  }
+
+  /* ====== 3-열 레이아웃 ====== */
+  .pub-page .publication-item{
+    display:grid;
+    grid-template-columns: 80px 140px 1fr;  /* 번호 | 학회/티어 | 본문 */
+    align-items:flex-start;
+    gap:26px;
+    background:#fff; border:none; border-radius:16px;
+    padding:28px 30px; margin-bottom:24px;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);
+    transition: box-shadow .25s ease, transform .25s ease;
+    counter-increment: pub -1;             /* 내림차순 번호 */
+  }
+  .pub-page .publication-item:hover{
+    box-shadow:0 8px 24px rgba(0,0,0,.12);
+    transform: translateY(-2px);
+  }
+
+  /* 번호: 실제 숫자는 ::before로 출력 */
+  .pub-page .pub-number{
+    min-width:80px; line-height:1; text-align:left; color:transparent; position:relative;
+  }
+  .pub-page .pub-number::before{
+    content: counter(pub);
+    display:block;
+    font-size:2.4rem; font-weight:800; color:#0d3b66;  /* 진한 파랑 느낌 */
+  }
+
+  /* 학회/티어 열 */
+  .pub-page .pub-venue{
+    min-width:140px; display:flex; flex-direction:column; gap:6px;
+  }
+  .pub-page .venue-tier{
+    align-self:flex-start;
+    display:inline-block; padding:4px 10px; border-radius:16px;
+    font-size:.8rem; font-weight:700; letter-spacing:.3px; text-transform:none;
+    background:#fff3e0; color:#e67e22;   /* 오렌지 배지 (Major/Top-Tier 등) */
+  }
+  .pub-page .venue-name{
+    font-size:1.4rem; font-weight:700; color:#0d3b66; line-height:1.2;
+  }
+
+  /* 본문 열 */
+  .pub-page .pub-details{ flex:1; }
+  .pub-page .pub-tags{ display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .pub-page .pub-tag{
+    display:inline-block; padding:6px 12px; border-radius:16px;
+    font-size:.8rem; font-weight:700; letter-spacing:.3px; border:0;
+  }
+  /* 태그 색상 (원하는대로 유지/수정 가능) */
+  .pub-page .tag-ai{   background:#e3f2fd; color:#1565c0; }
+  .pub-page .tag-mem{  background:#f3e5f5; color:#7b1fa2; }
+  .pub-page .tag-ca{   background:#e8f5e9; color:#2e7d32; }
+  .pub-page .tag-sec{  background:#fff3e0; color:#ef6c00; }
+  .pub-page .tag-hci{  background:#fce4ec; color:#c2185b; }
+  .pub-page .tag-bc{   background:#e0f2f1; color:#00796b; }
+  .pub-page .tag-sys{  background:#f1f8e9; color:#558b2f; }
+  .pub-page .tag-med{  background:#ffebee; color:#c62828; }
+  .pub-page .tag-meta{ background:#ede7f6; color:#5e35b1; }
+  .pub-page .tag-journal{  background:#263238; color:#fff; }
+  .pub-page .tag-conf{     background:#455a64; color:#fff; }
+  .pub-page .tag-domestic{ background:#607d8b; color:#fff; }
+
+  .pub-page .pub-title{ font-size:1.25rem; font-weight:700; color:#000; margin:0 0 10px; line-height:1.35; }
+  .pub-page .pub-title a{ color:inherit; text-decoration:none; transition:color .2s; }
+  .pub-page .pub-title a:hover{ color:#1976d2; }
+  .pub-page .publication-meta{ font-size:.95rem; color:#666; margin-bottom:8px; }
+  .pub-page .publication-authors{ font-size:.9rem; color:#888; line-height:1.5; }
+  .pub-page .publication-authors strong{ color:#000; font-weight:700; }
+
+  /* 반응형: 세로 스택 */
+  @media (max-width: 768px){
+    .pub-page .publication-item{
+      grid-template-columns: 60px 1fr;   /* 번호 | 나머지 */
+      grid-template-areas:
+        "num venue"
+        "num details";
     }
-
-    /* Publication Item */
-    .pub-page .publication-item {
-      background: white;
-      border-radius: 16px;
-      padding: 30px;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: flex-start;
-      gap: 30px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: none;
-      /* 전역 .publication-item 경계선 무력화 */
-      counter-increment: pub -1;
-    }
-
-    .pub-page .publication-item:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      transform: translateY(-2px);
-    }
-
-    /* Publication Number */
-    .pub-page .pub-number {
-      min-width: 80px;
-      text-align: left;
-      line-height: 1;
-      color: transparent;
-      position: relative;
-    }
-
-    .pub-page .pub-number::before {
-    content: counter(pub);    /* 자동 번호 출력 */
-    color: #000;
-    font-size: 2.8rem;
-    font-weight: 700;
-    line-height: 1;
-    display: block;
-    }
-
-    /* Venue Section */
-    .pub-page .pub-venue {
-      min-width: 200px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .pub-page .venue-tier {
-      display: inline-block;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      align-self: flex-start;
-    }
-
-    .pub-page .tier-top {
-      background: #ffebee;
-      color: #c62828;
-    }
-
-    .pub-page .tier-major {
-      background: #fff3e0;
-      color: #f57c00;
-    }
-
-    .pub-page .venue-name {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #000;
-      line-height: 1.3;
-    }
-
-    /* Publication Details */
-    .pub-page .pub-details {
-      flex: 1;
-    }
-
-    .pub-page .pub-tags {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-
-    .pub-page .pub-tag {
-      display: inline-block;
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border: 0;
-      /* 전역 pub-tag 테두리 제거 */
-    }
-
-    /* Tag Colors */
-    .pub-page .tag-ai {
-      background: #e3f2fd;
-      color: #1565c0;
-    }
-
-    .pub-page .tag-mem {
-      background: #f3e5f5;
-      color: #7b1fa2;
-    }
-
-    .pub-page .tag-ca {
-      background: #e8f5e9;
-      color: #2e7d32;
-    }
-
-    .pub-page .tag-sec {
-      background: #fff3e0;
-      color: #ef6c00;
-    }
-
-    .pub-page .tag-hci {
-      background: #fce4ec;
-      color: #c2185b;
-    }
-
-    .pub-page .tag-bc {
-      background: #e0f2f1;
-      color: #00796b;
-    }
-
-    .pub-page .tag-sys {
-      background: #f1f8e9;
-      color: #558b2f;
-    }
-
-    .pub-page .tag-med {
-      background: #ffebee;
-      color: #c62828;
-    }
-
-    .pub-page .tag-meta {
-      background: #ede7f6;
-      color: #5e35b1;
-    }
-
-    /* Publication Type Tags */
-    .pub-page .tag-journal {
-      background: #263238;
-      color: #fff;
-    }
-
-    .pub-page .tag-conf {
-      background: #455a64;
-      color: #fff;
-    }
-
-    .pub-page .tag-domestic {
-      background: #607d8b;
-      color: #fff;
-    }
-
-    /* Publication Title and Meta */
-    .pub-page .pub-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #000;
-      margin-bottom: 12px;
-      line-height: 1.4;
-    }
-
-    .pub-page .pub-title a {
-      color: inherit;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .pub-page .pub-title a:hover {
-      color: #1976d2;
-    }
-
-    .pub-page .publication-meta {
-      font-size: 0.95rem;
-      color: #666;
-      margin-bottom: 10px;
-    }
-
-    .pub-page .publication-authors {
-      font-size: 0.9rem;
-      color: #888;
-      line-height: 1.5;
-    }
-
-    .pub-page .publication-authors strong {
-      color: #000;
-      font-weight: 600;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .pub-page .publication-item {
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .pub-page .pub-number {
-        min-width: auto;
-        text-align: left;
-      }
-
-      .pub-page .pub-venue {
-        min-width: auto;
-      }
-    }
-  </style>
+    .pub-page .pub-number{ grid-area:num; }
+    .pub-page .pub-venue{ grid-area:venue; }
+    .pub-page .pub-details{ grid-area:details; }
+    .pub-page .venue-name{ font-size:1.2rem; }
+  }
+</style>
 </head>
 <script>
-  (function () {
-    const total = document.querySelectorAll('.publication-item').length;
-    document.body.style.setProperty('--pub-start', total + 1);
-  })();
+  (function(){document.body.style.setProperty('--pub-start',
+    document.querySelectorAll('.publication-item').length + 1);})();
 </script>
 <body class="pub-page">
   <!-- Header -->
