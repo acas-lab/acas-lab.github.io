@@ -47,6 +47,15 @@
       position: relative;
     }
 
+    .pub-page .pub-number::before {
+    content: counter(pub);    /* 자동 번호 출력 */
+    color: #000;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1;
+    display: block;
+    }
+
     /* Venue Section */
     .pub-page .pub-venue {
       min-width: 200px;
