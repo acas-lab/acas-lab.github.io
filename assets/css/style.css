@@ -50,7 +50,7 @@ nav ul li a.active { color: #007bff; font-weight: bold;}
 .member-detail .member-bio ul { list-style: disc; margin-left: 20px; margin-bottom: 15px;}
 .member-detail .member-bio ul li { font-size: 1rem; margin-bottom: 5px;}
 .member-detail .email-contact { font-size: 1rem; margin-top: 20px;}
-.member-detail .email-contact a { color: #007bff; text-decoration: none;}
+.member-detail .email-contact a { color: #007b  ff; text-decoration: none;}
 .member-detail .email-contact a:hover { text-decoration: underline;}
 
 .research-item { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; padding: 20px; background: #fff; border: 1px solid #ddd; border-radius: 8px;}

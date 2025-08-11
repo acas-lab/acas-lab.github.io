@@ -232,7 +232,12 @@
     }
   </style>
 </head>
-
+<script>
+  (function () {
+    const total = document.querySelectorAll('.publication-item').length;
+    document.body.style.setProperty('--pub-start', total + 1);
+  })();
+</script>
 <body class="pub-page">
   <!-- Header -->
   <header>
