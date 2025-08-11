@@ -43,4 +43,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     // --- 이메일 복사 기능 끝 ---
+    function enablePublicationTitleCopy() {
+        const links = document.querySelectorAll('.pub-title a');
+        if (!links.length) return;
+
+        links.forEach(link => {
+        link.addEventListener('click', (e) => {
+            // 수정키/휠클릭은 원래 동작 유지(새 탭 열기 등)
+            if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button === 1) return;
+
+            e.preventDefault();
+            const title = link.textContent.replace(/\s+/g, ' ').trim();
+
+            // 알림은 뜨지 않고, 작은 배지로 피드백만 주기
+            copyToClipboard(title, {
+            alertOnSuccess: false,
+            errorMsg: '논문 제목 복사에 실패했습니다. 직접 복사해주세요: ' + title
+            });
+
+            link.classList.add('copied');
+            setTimeout(() => link.classList.remove('copied'), 1400);
+        });
+        });
+    }
+    enablePublicationTitleCopy();
 });

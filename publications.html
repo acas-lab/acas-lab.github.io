@@ -69,7 +69,21 @@
     .pub-page .tag-domestic { background:#eaf0f4; color:#34515e; }
 
     .pub-page .pub-title{ font-size:1.25rem; font-weight:700; color:#000; margin:0 0 10px; line-height:1.35; }
-    .pub-page .pub-title a{ color:inherit; text-decoration:none; transition:color .2s; }
+    .pub-page .pub-title a{ cursor: copy; position: relative; }
+    .pub-page .pub-title a.copied::after{
+      content: "논문 제목이 복사되었습니다";
+      position: absolute; left: 0; top: 0;
+      transform: translateY(-140%);
+      background: #111; color: #fff;
+      padding: 2px 8px; border-radius: 6px; font-size: .75rem;
+      opacity: 0; white-space: nowrap;
+      animation: pubCopyToast 1.2s ease forwards;
+    }
+    @keyframes pubCopyToast{
+      0%{opacity:0; transform: translateY(-160%);}
+      20%{opacity:1;}
+      100%{opacity:0; transform: translateY(-190%);}
+    }
     .pub-page .pub-title a:hover{ color:#1976d2; }
     .pub-page .publication-meta{ font-size:.95rem; color:#666; margin-bottom:8px; }
     .pub-page .publication-authors{ font-size:.9rem; color:#888; line-height:1.5; }
