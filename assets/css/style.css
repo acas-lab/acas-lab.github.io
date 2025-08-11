@@ -28,10 +28,12 @@ nav ul li a.active { color: #007bff; font-weight: bold;}
 .pi img { width: 200px; height: auto; border-radius: 8px; }
 .pi .bio { max-width: 800px; }
 
-.members-grid-4 { display: grid !important; grid-template-columns: repeat(4, minmax(200px, 1fr)); 
+.members-grid-4 { display: grid !important; grid-template-columns: repeat(4, minmax(200px, 250px)); 
   gap: 30px; margin-bottom: 60px; justify-content:space-between;;}
 .member-card { background: transparent; border-radius: 0; padding: 10px; text-align: center;
     transition: transform 0.3s; display: flex; flex-direction: column; align-items: center; width: 200px;}
+.members-grid-4 > .member-card,
+.members-grid-4 > .member-link-card { width: auto;}
 .member-card img{ width: 180px; height: 220px; border-radius: 20px; object-fit: cover; object-position: 50% 20%;
  margin-bottom: 15px; transition: box-shadow .3s;}
 .member-card h3 {  margin: 10px 0 8px 0;  text-align: center; font-size: 1.3em; font-weight: 600; color: #333;}
