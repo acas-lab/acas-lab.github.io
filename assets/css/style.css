@@ -106,6 +106,7 @@ nav ul li a.active { color: #007bff; font-weight: bold;}
 .memory-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1);}
 .memory-card img { width: 100%; /* 100px이 아닌 100%로 변경 */ height: 250px; /* 고정 높이 설정 */ object-fit: cover; display: block;}
 .memory-card h3 { margin: 12px; font-size: 1.1rem; text-align: center}
+.memory-card .memory-caption { margin: 12px; font-size: 0.98rem; line-height: 1.5; text-align: center; overflow-wrap: anywhere; hyphens: auto; }
 
 .footer-banner { background-color: #000000; color: white; padding: 30px 0; width: 100%; margin-top: auto; flex-shrink: 0; display: flex; justify-content: center; /* 푸터 내용 중앙 정렬 (선택 사항, 필요에 따라 조정) */ align-items: center; /* 푸터 내용 세로 중앙 정렬 (선택 사항, 필요에 따라 조정) */}
 .footer-content { max-width: 1200px; width:100%; margin: 0 auto; display: flex; justify-content: space-between;
@@ -180,8 +181,17 @@ nav ul li a.active { color: #007bff; font-weight: bold;}
 
   .footer-content { flex-direction: column; align-items: flex-start; gap: 16px; }
   .footer-right { text-align: left; }
+  
+  /* Memories page readability */
+  .memories-grid { grid-template-columns: 1fr; gap: 16px; }
+  .memory-card img { height: 200px; }
+  .memory-card .memory-caption { font-size: 1.02rem; padding: 10px 14px; }
 }
 
+/* Memories: two columns on tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .memories-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (min-width: 768px) {
   /* Desktop/tablet: ensure nav and layout behave as before */
   header nav { display: block; position: static; box-shadow: none; border: 0; }
