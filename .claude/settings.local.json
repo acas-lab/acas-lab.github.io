@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /Users/junonlee/Documents/lab_work/.claude/agents)"
+    ],
+    "additionalDirectories": [
+      "/Users/junonlee/Documents/lab_work/.claude"
+    ]
+  }
+}
